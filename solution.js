@@ -17,8 +17,8 @@ const initializeDbAndServer = async () => {
       filename: databasePath,
       driver: sqlite3.Database,
     });
-    app.listen(3000, () =>
-      console.log("Server Running at http://localhost:3000/")
+    app.listen(4000, () =>
+      console.log("Server Running at http://localhost:4000/")
     );
   } catch (error) {
     console.log(`DB Error: ${error.message}`);
@@ -135,5 +135,16 @@ app.get("/directors/:directorId/movies/", async (request, response) => {
   response.send(
     moviesArray.map((eachMovie) => ({ movieName: eachMovie.movie_name }))
   );
+});
+
+app.delete("/directors/:directorId/", async (request, response) => {
+  const { directorId } = request.params;
+  const deleteDirectorQuery = `
+  DELETE FROM
+    director
+  WHERE
+    director_id = ${directorId};`;
+  await database.run(deleteDirectorQuery);
+  response.send("Director Removed");
 });
 module.exports = app;
