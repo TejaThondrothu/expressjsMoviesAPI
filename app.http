@@ -33,3 +33,6 @@ GET http://localhost:3000/directors/
 
 ###
 GET http://localhost:3000/directors/2/movies/
+
+###
+DELETE http://localhost:4000/directors/5/
